@@ -1,5 +1,7 @@
 
-public class Carro extends Veiculo implements IVeiculo {
+public class Carro extends Veiculo {
+	
+	public final double VALOR_BASE = 5.0;
 	
 	public Carro() {
 		
@@ -11,10 +13,12 @@ public class Carro extends Veiculo implements IVeiculo {
 	}
 
 	@Override
-	public double calculoTarifa(double distancia) {
-		
-		return 5 + distancia;
+	public double calcularTarifa(double distancia) {
+		return this.VALOR_BASE + distancia;
 	}
 	
-	//5 é o valor base, pode ser implementado como uma variavel tarifa_base
+	@Override
+	public boolean veiculoCompativel(Veiculo veiculo) {
+		return true;
+	}
 }

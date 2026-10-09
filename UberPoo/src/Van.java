@@ -1,5 +1,7 @@
 
-public class Van extends Veiculo implements IVeiculo{
+public class Van extends Veiculo{
+	
+	public final double VALOR_BASE = 8.0;
 	
 	public Van() {
 		
@@ -10,9 +12,13 @@ public class Van extends Veiculo implements IVeiculo{
 	}
 
 	@Override
-	public double calculoTarifa(double distancia) {
-		
-		return 8 + distancia;
+	public double calcularTarifa(double distancia) {
+		return this.VALOR_BASE + distancia;
+	}
+	
+	@Override
+	public boolean veiculoCompativel(Veiculo veiculo) {
+		return true;
 	}
 	
 	

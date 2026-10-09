@@ -10,5 +10,12 @@ public class Passageiro extends Pessoa{
 
 	}
 	
+	public void solicitarCorrida() {
+		
+	}
+	
+	public void avaliarMotorista() {
+		
+	}
 	
 }

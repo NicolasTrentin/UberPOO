@@ -58,5 +58,8 @@ public abstract class Veiculo {
 		this.capacidadePassageiros = capacidadePassageiros;
 	}
 	
+	public abstract double calcularTarifa(double distancia);
+	
+	public abstract boolean veiculoCompativel(Veiculo veiculo);
 	
 }
