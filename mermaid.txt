@@ -1,0 +1,149 @@
+---
+config:
+  layout: elk
+---
+classDiagram
+    direction LR
+
+    class SistemaTransporte {
+        -List~Passageiro~ passageiros
+        -List~Motorista~ motoristas
+        -List~Veiculo~ veiculos
+        -List~Corrida~ corridas
+        +cadastrarPassageiro(Passageiro) void
+        +cadastrarMotorista(Motorista) void
+        +cadastrarVeiculo(Veiculo) void
+        +solicitarCorrida(Passageiro, String, String, double, Categoria, FormaPagamento) Corrida
+        +aceitarCorrida(int, Motorista) void
+        +listarCorridas() List~Corrida~
+    }
+
+    class Pessoa {
+        <<abstract>>
+        -String nome
+        -String cpf
+        -String telefone
+        +getNome() String
+    }
+
+    class Passageiro {
+        +solicitarCorrida() void
+        +avaliarMotorista(Corrida, int, String) Avaliacao
+    }
+
+    class Motorista {
+        -String numeroCNH
+        -boolean disponivel
+        +aceitarCorrida(Corrida) void
+        +ficarDisponivel() void
+        +calcularMediaAvaliacoes() double
+    }
+
+    class Veiculo {
+        <<abstract>>
+        -String placa
+        -String modelo
+        -String cor
+        -int ano
+        -int capacidadePessoas
+        +calcularTarifaBase(double) BigDecimal
+        +compativelCom(Categoria) boolean
+    }
+
+    class Carro {
+        +calcularTarifaBase(double) BigDecimal
+    }
+
+    class Moto {
+        +calcularTarifaBase(double) BigDecimal
+    }
+
+    class Van {
+        +calcularTarifaBase(double) BigDecimal
+    }
+
+    class Corrida {
+        -int id
+        -String origem
+        -String destino
+        -double distanciaKm
+        -String status
+        -BigDecimal valorFinal
+        +aceitar(Motorista) void
+        +iniciar() void
+        +finalizar() BigDecimal
+        +cancelar() void
+        +calcularValor() BigDecimal
+        +podeSerAvaliada() boolean
+    }
+
+    class Categoria {
+        <<interface>>
+        +calcularValor(double, Veiculo) BigDecimal
+        +veiculoCompativel(Veiculo) boolean
+    }
+
+    class Economica {
+        +calcularValor(double, Veiculo) BigDecimal
+        +veiculoCompativel(Veiculo) boolean
+    }
+
+    class Conforto {
+        +calcularValor(double, Veiculo) BigDecimal
+        +veiculoCompativel(Veiculo) boolean
+    }
+
+    class Premium {
+        +calcularValor(double, Veiculo) BigDecimal
+        +veiculoCompativel(Veiculo) boolean
+    }
+
+    class FormaPagamento {
+        <<interface>>
+        +aplicarRegra(BigDecimal) BigDecimal
+        +getDescricao() String
+    }
+
+    class Pix {
+        +aplicarRegra(BigDecimal) BigDecimal
+    }
+
+    class Cartao {
+        +aplicarRegra(BigDecimal) BigDecimal
+    }
+
+    class Dinheiro {
+        +aplicarRegra(BigDecimal) BigDecimal
+    }
+
+    class Avaliacao {
+        -int nota
+        -String comentario
+        +getNota() int
+    }
+
+    Pessoa <|-- Passageiro
+    Pessoa <|-- Motorista
+    Veiculo <|-- Carro
+    Veiculo <|-- Moto
+    Veiculo <|-- Van
+
+    Categoria <|.. Economica
+    Categoria <|.. Conforto
+    Categoria <|.. Premium
+    FormaPagamento <|.. Pix
+    FormaPagamento <|.. Cartao
+    FormaPagamento <|.. Dinheiro
+
+    SistemaTransporte "1" --> "*" Passageiro : cadastra
+    SistemaTransporte "1" --> "*" Motorista : cadastra
+    SistemaTransporte "1" --> "*" Veiculo : cadastra
+    SistemaTransporte "1" --> "*" Corrida : gerencia
+    Motorista "1" --> "1" Veiculo : associado
+    Passageiro "1" --> "*" Corrida : solicita
+    Corrida "0..1" --> "1" Motorista : realizada por
+    Corrida "1" --> "1" Veiculo : utiliza
+    Corrida "1" --> "1" Categoria : categoria
+    Corrida "1" --> "1" FormaPagamento : pagamento
+    Corrida "1" --> "0..1" Avaliacao : recebe
+    Avaliacao "*" --> "1" Motorista : avalia
