@@ -1,4 +1,3 @@
-
 public class Carro extends Veiculo {
 	
 	public final double VALOR_BASE = 5.0;

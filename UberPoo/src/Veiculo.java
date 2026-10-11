@@ -1,5 +1,6 @@
 
 public abstract class Veiculo {
+	
 	private String placa;
 	private String modelo;
 	private String cor;

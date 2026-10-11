@@ -26,8 +26,19 @@ public class Motorista extends Pessoa{
 		return cnh;
 	}
 
-	public double calcularMediaAvaliacoes() {
-		return 0;
+	public double calcularMediaAvaliacoes(Avaliacao[] avaliacoes) {
+		
+	    if (avaliacoes == null || avaliacoes.length == 0) {
+	        return 0.0;
+	    }
+		
+		double soma = 0.0;
+		
+		for(int i = 0; i < avaliacoes.length; i ++) {
+			soma += avaliacoes[i].getNota();
+		}
+		
+		return soma / avaliacoes.length;
 	}
 	
 }
