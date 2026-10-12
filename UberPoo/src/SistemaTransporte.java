@@ -69,4 +69,12 @@ public class SistemaTransporte {
 			System.out.println(corridas[i].toString());
 		}
 	}
+	
+	public void listarVeiculos() {
+		System.out.println("Véiculos Disponíveis:\n");
+		for(int i = 0; i < veiculos.length; i++) {
+			
+			System.out.println(corridas[i].toString());
+		}
+	}
 }

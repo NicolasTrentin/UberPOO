@@ -5,7 +5,7 @@ public abstract class Veiculo {
 	private String modelo;
 	private String cor;
 	private int ano;
-	private int capacidadePassageiros;
+	private int capacidadePassageiros; //tinha que ser constante
 	
 	public Veiculo() {
 		
@@ -62,5 +62,15 @@ public abstract class Veiculo {
 	public abstract double calcularTarifa(double distancia);
 	
 	public abstract boolean veiculoCompativel(Veiculo veiculo);
+	
+	@Override
+	public String toString() {
+		return "Veículo:\n"
+				+ "Placa: " + this.placa + "\n"
+				+ "Modelo: " + this.modelo + "\n"
+				+ "Cor: " + this.cor + "\n"
+				+ "Ano: " + this.ano + "\n";
+				
+	}
 	
 }
