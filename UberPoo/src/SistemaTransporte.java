@@ -71,10 +71,19 @@ public class SistemaTransporte {
 	}
 	
 	public void listarVeiculos() {
-		System.out.println("Véiculos Disponíveis:\n");
-		for(int i = 0; i < veiculos.length; i++) {
+		if(veiculos == null) {
 			
-			System.out.println(corridas[i].toString());
+			System.out.println("Nenhum veículo encontrado.");
+			
+		}else {
+			
+			System.out.println("Véiculos Disponíveis:\n");
+			for(int i = 0; i < veiculos.length; i++) {
+				
+				System.out.println(veiculos[i].toString());
+			}
+			
 		}
+
 	}
 }
