@@ -17,4 +17,9 @@ public class Economica implements Categoria{
 	public boolean veiculoCompativel(Veiculo veiculo) {
 	    return veiculo instanceof Moto || veiculo instanceof Carro;
 	}
+	
+	@Override
+	public String toString() {
+		return "Economica - " + "Acrescimo: " + ((this.ACRESCIMO - 1) * 100)  + "%\n";		
+	}
 }

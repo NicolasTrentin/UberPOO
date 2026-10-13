@@ -37,17 +37,16 @@ public class Corrida {
 	}
 	
 	//#CORRIDA-RECEM-SOLICITADA
-	public Corrida(String origem, String destino, double distancia, FormaPagamento pagamento, Avaliacao avaliacao, Categoria categoria, Passageiro passageiro) {
+	public Corrida(Passageiro passageiro, String origem, String destino, double distancia, Categoria categoria, FormaPagamento pagamento) {
 		this.id = proxId++;
+		this.passageiro = passageiro;
 		this.origem = origem;
 		this.destino = destino;
 		this.distancia = distancia;
+		this.categoria = categoria;
+		this.pagamento = pagamento;
 		this.status = "SOLICITADA";
 		this.valorFinal = 0;
-		this.pagamento = pagamento;
-		this.avaliacao = avaliacao;
-		this.categoria = categoria;
-		this.passageiro = passageiro;
 	}
 	
 	public String getOrigem() {
@@ -136,35 +135,53 @@ public class Corrida {
 
 	public void aceitar(Motorista motorista) {
 		
-	   if (motorista == null) {
-	        System.out.println("MOTORISTA INVÁLIDO!");
-	        return;
-	    }
-		
-		if(this.getStatus().equals("SOLICITADA") && this.getCategoria().veiculoCompativel(motorista.getVeiculo())) {
+		if(this.getStatus().equals("SOLICITADA") && this.getCategoria().veiculoCompativel(motorista.getVeiculo()) && motorista.getDisponibilidade()) {
 			
 			this.setMotorista(motorista);
+			this.motorista.setDisponibilidade(false);
 			this.setVeiculo(motorista.getVeiculo());
 			this.setStatus("ACEITA");
 			
 			this.setValorFinal(this.calcularValor());
 			
 		}else {
-			System.out.println("CORRIDA JÁ ACEITA OU VEÍCULO INCOMPÁTIVEL COM CATEGORIA.");
+			System.out.println("A CORRIDA JÁ ESTÁ ACEITA OU O VEÍCULO É INCOMPÁTIVEL COM CATEGORIA.");
 		}
 
 	}
 	
-	public void iniciar(Motorista motorista) {
+	public void iniciar() {
+		
+		if(this.getStatus().equals("ACEITA")) {
+			this.setStatus("EM_ANDAMENTO");
+		}else {
+			System.out.println("A CORRIDA NÃO PODE SER INICIADO NESTE ESTADO: " + this.getStatus());
+		}
 		
 	}
 	
 	public double finalizar() {
-		return this.valorFinal;
+		if(this.getStatus().equals("EM_ANDAMENTO")) {
+			this.setStatus("FINALIZADA");
+			this.motorista.setDisponibilidade(true);
+			return this.valorFinal;
+		}else {
+			System.out.println("A CORRIDA NÃO PODE SER FINALIZADA NESTE ESTADO: " + this.getStatus());
+			return 0;
+		}
 	}
 	
 	public void cancelar() {
-		System.out.println("Viagem cancelada!");
+		if(this.getStatus().equals("SOLICITADA") || this.getStatus().equals("ACEITA")){
+			this.setStatus("CANCELADA");
+			
+			if(this.motorista != null) {
+				this.motorista.setDisponibilidade(true);
+			}
+			
+		}else {
+			System.out.println("A CORRIDA NÃO PODE SER CANCELADA NESTE ESTADO: " + this.getStatus());
+		}
 	}
 	
 	public double calcularValor() {
@@ -172,7 +189,22 @@ public class Corrida {
 	}
 	
 	public boolean podeSerAvaliado() {
-		return true;
+	    return this.status.equals("FINALIZADA") && this.avaliacao == null;
+	}
+	
+	public boolean avaliar(Avaliacao avaliacao) {
+	    if (!podeSerAvaliado()) {
+	        System.out.println("CORRIDA NÃO PODE SER AVALIADA.");
+	        return false;
+	    }
+
+	    if (avaliacao.getMotorista() != this.motorista) {
+	        System.out.println("MOTORISTA NÃO CORRESPONDE À CORRIDA.");
+	        return false;
+	    }
+
+	    this.avaliacao = avaliacao;
+	    return true;
 	}
 	
 	@Override
@@ -180,7 +212,7 @@ public class Corrida {
 		return "Corrida " + String.format("%02d", this.id) + "\n"
 				+ "Origem: " + this.origem + "\n"
 				+ "Destino: " + this.destino + "\n"
-				+ "Motorista: " + this.motorista + "\n"
+				+ "Motorista: " + (this.motorista == null ? "Ainda não atribuído" : this.motorista) + "\n"
 				+ "Categoria: " + this.categoria + "\n"
 				+ "Valor Final: R$ " + String.format("%.2f", this.valorFinal);
 				

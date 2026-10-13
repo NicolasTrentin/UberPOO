@@ -18,5 +18,8 @@ public class Conforto implements Categoria {
 	    return veiculo instanceof Carro;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Conforto - " + "Acrescimo: " + ((this.ACRESCIMO  - 1) * 100) + "%\n";		
+	}
 }

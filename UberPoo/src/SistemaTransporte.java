@@ -49,26 +49,86 @@ public class SistemaTransporte {
 		}
 	}
 	
-	public void solicitarCorrida(Corrida corrida) {
-		for(int i = 0; i < corridas.length; i++) {
-			if(corridas[i] == null) {
-				corridas[i] = corrida;
-				break;
-			}
-		}
+	public Corrida solicitarCorrida(Passageiro passageiro, String origem, String destino, double distancia, Categoria categoria, FormaPagamento pagamento) {
+
+	    int i;
+
+	    for (i = 0; i < corridas.length; i++) {
+	        if (corridas[i] == null) {
+	            break;
+	        }
+	    }
+
+	    if (i == corridas.length) {
+	        System.out.println("ARRAY CHEIO, IMPOSSÍVEL ARMAZENAR CORRIDA.");
+	        return null;
+	    } else {
+	        Corrida corrida = new Corrida(passageiro, origem, destino, distancia, categoria, pagamento);
+
+	        corridas[i] = corrida;
+	        
+	        return corrida;
+	    }
 	}
 	
 	public void aceitarCorrida(int id, Motorista motorista) {
 		
+		   if (motorista == null) {
+		        System.out.println("MOTORISTA INVÁLIDO!");
+		        return;
+		    }
+		
+		boolean encontrou = false;
+		
+	    for (int i = 0; i < corridas.length; i++) {
+
+	        if (corridas[i] != null && corridas[i].getId() == id) {
+	            corridas[i].aceitar(motorista);
+	            encontrou = true;
+	            break;
+	        }
+
+	    }
+	    
+	    if(!encontrou) {
+	    	System.out.println("CORRIDA NÃO ENCONTRADA.");
+	    }
 	}
 	
-//	public void listarCorridas() {
-//		System.out.println("Corridas realizadas:\n");
-//		for(int i = 0; i < corridas.length; i++) {
-//			
-//			System.out.println(corridas[i].toString());
-//		}
-//	}
+	public void finalizarCorrida(int id) {
+		
+		boolean encontrou = false;
+		
+		for(int i = 0; i < this.corridas.length; i++) {
+			if(this.corridas[i] != null && this.corridas[i].getId() == id) {
+				corridas[i].finalizar();
+				encontrou = true;
+				break;
+			}
+		}
+		
+	    if(!encontrou) {
+	    	System.out.println("CORRIDA NÃO ENCONTRADA.");
+	    }
+		
+	}
+	
+	public void cancelarCorrida(int id) {
+		
+		boolean encontrou = false;
+		
+		for(int i = 0; i < this.corridas.length; i++) {
+			if(this.corridas[i] != null && this.corridas[i].getId() == id) {
+				corridas[i].cancelar();
+				encontrou = true;
+				break;
+			}
+		}
+		
+	    if(!encontrou) {
+	    	System.out.println("CORRIDA NÃO ENCONTRADA.");
+	    }
+	}
 	
 	public void listarPassageiros() {
 	    System.out.println("PASSAGEIROS CADASTRADOS:\n");
@@ -175,7 +235,17 @@ public class SistemaTransporte {
 	    }
 
 	    if (!encontrou) {
-	        System.out.println("NENHUMa CORRIDA ENCONTRADO.");
+	        System.out.println("NENHUMA CORRIDA ENCONTRADA.");
 	    }
+	}
+	
+	public Corrida getCorrida(int id) {
+	    for (int i = 0; i < corridas.length; i++) {
+	        if (corridas[i] != null && corridas[i].getId() == id) {
+	            return corridas[i];
+	        }
+	    }
+	    
+	    return null;
 	}
 }

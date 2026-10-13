@@ -28,6 +28,11 @@ public class Motorista extends Pessoa{
 		return this.disponibilidade;
 	}
 	
+	
+	public void setDisponibilidade(boolean disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
+
 	public Veiculo getVeiculo() {
 		return veiculo;
 	}
@@ -49,6 +54,10 @@ public class Motorista extends Pessoa{
 		}
 		
 		return soma / avaliacoes.length;
+	}
+	
+	public String toString() {
+		return "Motorista - "+ "Nome: " + this.getNome() + " - " + "CNH: " + this.getCnh() + "\n";		
 	}
 	
 }

@@ -7,12 +7,13 @@ public class Menu {
 	
 	public Menu() {
 		this.sistema = new SistemaTransporte();
+		sc = new Scanner(System.in);
 	}
 	
 	public void mostrarMenu() {
 
 		int opcao = 0;
-		sc = new Scanner(System.in);
+		//sc = new Scanner(System.in);
 
 		do {
 			System.out.println("=========================================");
@@ -53,7 +54,7 @@ public class Menu {
 	public void menuCadastros() {
 		
 		int opcao = 0;
-		sc = new Scanner(System.in);
+		//sc = new Scanner(System.in);
 		
 		do {
 			System.out.println("=========================================");
@@ -182,7 +183,7 @@ public class Menu {
 	public void carro() {
 		System.out.println("Digite as seguintes informações do carro:\n");
 		
-		Veiculo v;
+		Veiculo v = null;
 		
 		System.out.println("PLACA:\n");
 		String placa = sc.nextLine();
@@ -202,7 +203,7 @@ public class Menu {
 	public void van() {
 		System.out.println("Digite as seguintes informações da van:\n");
 		
-		Veiculo v;
+		Veiculo v = null;
 		
 		System.out.println("PLACA:\n");
 		String placa = sc.nextLine();
@@ -223,7 +224,7 @@ public class Menu {
 	public void menuCorridas() {
 		
 		int opcao = 0;
-		sc = new Scanner(System.in);
+		//sc = new Scanner(System.in);
 		
 		do {
 			System.out.println("=========================================");
@@ -244,16 +245,16 @@ public class Menu {
 				solicitarCorrida();
 				break;
 			case 2:
-				//aceitarCorrida();
+				aceitarCorrida();
 				break;
 			case 3:
-				//finalizarCorrida();
+				finalizarCorrida();
 				break;
 			case 4:
-				//cancelarCorrida();
+				cancelarCorrida();
 				break;
 			case 5:
-				//avaliarMotorista();
+				avaliarMotorista();
 				break;
 			case 0:
 				System.out.println("VOLTANDO...");
@@ -271,15 +272,22 @@ public class Menu {
 		int indice = 0;
 		
 		System.out.println("Digite o índice do passageiro desejado:\n\n");
+		
+		 Passageiro p = null;
 		 
 		sistema.listarPassageiros();
 		 
 		indice = sc.nextInt();
 		sc.nextLine();
 
-		Passageiro p = sistema.getPassageiro(indice);
+		p = sistema.getPassageiro(indice);
 		
-		Corrida c;
+//		if (p == null) {
+//		    System.out.println("PASSAGEIRO NÃO ENCONTRADO.");
+//		    return;
+//		}
+		
+		Corrida c = null;
 		
 		System.out.println("Digite as seguintes informações da corrida:\n");
 		
@@ -289,20 +297,145 @@ public class Menu {
 		String destino = sc.nextLine();
 		System.out.println("DISTÂNCIA:\n");
 		double distancia = sc.nextDouble();
-
-//		indice = 0;
-//		
-//		sistema.listarMotoristas();
-//		
-//		System.out.println("Digite o índice do motorista desejado:\n");
-//		
-//		indice = sc.nextInt();
-//		sc.nextLine();
-//		
-//		Motorista m = sistema.getMotorista(indice);
 		
-		//c = new Corrida(origem, destino, distancia, cnh, sistema.getVeiculo(indice));
+		System.out.println("Selecione a categoria da corrida solicitada:\n");
 		
-		//sistema.cadastrarMotorista(m);
+		Categoria cat = null;
+		
+		System.out.println(" [1] - ECONOMICA");
+		System.out.println(" [2] - CONFORTO");
+		System.out.println(" [3] - PREMIUM");
+		
+		int opcao = 0;
+		
+		opcao = sc.nextInt();
+		sc.nextLine();
+		
+		switch (opcao) {
+		case 1:
+			cat = new Economica();
+			break;
+		case 2:
+			cat = new Conforto();
+			break;
+		case 3:
+			cat = new Premium();;
+			break;
+	    default:
+	        System.out.println("CATEGORIA INVÁLIDA.");
+	        return;
+		}
+		
+		System.out.println("Selecione a forma de pagamento da corrida solicitada:\n");
+		
+		FormaPagamento pag = null;
+		
+		System.out.println(" [1] - DINHEIRO");
+		System.out.println(" [2] - PIX");
+		System.out.println(" [3] - CARTÃO");
+		
+		opcao = sc.nextInt();
+		sc.nextLine();
+		
+		switch (opcao) {
+		case 1:
+			pag = new Dinheiro();
+			break;
+		case 2:
+			pag = new Pix();
+			break;
+		case 3:
+			pag = new Cartao();;
+			break;
+	    default:
+	        System.out.println("FORMA DE PAGAMENTO INVÁLIDA.");
+	        return;
+		}
+		
+		c = sistema.solicitarCorrida(p, origem, destino, distancia, cat, pag);
+		System.out.println("Corrida soliciada com sucesso:\n" + c.toString());
 	}
+	
+	public void aceitarCorrida() {
+	    System.out.println("Selecione o ID da corrida que deseja aceitar:\n");
+
+	    sistema.listarCorridas();
+
+	    int id = sc.nextInt();
+	    sc.nextLine();
+
+	    System.out.println("Selecione o motorista desejado:\n");
+
+	    sistema.listarMotoristas();
+
+	    int indice = sc.nextInt();
+	    sc.nextLine();
+
+	    Motorista m = sistema.getMotorista(indice);
+
+//	    if (m == null) {
+//	        System.out.println("MOTORISTA NÃO ENCONTRADO.");
+//	        return;
+//	    }
+
+	    sistema.aceitarCorrida(id, m);
+	}
+	
+	public void finalizarCorrida() {
+	    System.out.println("Selecione o ID da corrida que deseja finalizar:\n");
+
+	    sistema.listarCorridas();
+
+	    int id = sc.nextInt();
+	    sc.nextLine();
+	    
+		sistema.finalizarCorrida(id);
+	}
+	
+	public void cancelarCorrida() {
+	    System.out.println("Selecione o ID da corrida que deseja cancelar:\n");
+
+	    sistema.listarCorridas();
+
+	    int id = sc.nextInt();
+	    sc.nextLine();
+	    
+		sistema.cancelarCorrida(id);
+	}
+	
+	public void avaliarMotorista() {
+	    System.out.println("Selecione o ID da corrida que deseja avaliar:\n");
+	    Corrida c = null;
+
+	    sistema.listarCorridas();
+	    
+	    int id = sc.nextInt();
+	    sc.nextLine();
+	    
+	    c = sistema.getCorrida(id);
+	    
+	    if (c == null) {
+	        System.out.println("CORRIDA NÃO ENCONTRADA.");
+	        return;
+	    }
+	    
+	    if (!c.podeSerAvaliado()) {
+	        System.out.println("ESSA CORRIDA NÃO PODE SER AVALIADA.");
+	        return;
+	    }
+	    
+	    System.out.println("Digite a nota do motorista (1 a 5):");
+	    int nota = sc.nextInt();
+	    sc.nextLine();
+
+	    System.out.println("Digite um comentário (ou pressione ENTER para pular):");
+	    String comentario = sc.nextLine();
+	    
+	    Avaliacao a = new Avaliacao(nota, comentario, c.getMotorista());
+
+	    if (c.avaliar(a)) {
+	        System.out.println("AVALIAÇÃO REGISTRADA COM SUCESSO!");
+	    }
+	}
+
 }

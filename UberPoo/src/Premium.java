@@ -17,4 +17,9 @@ public class Premium implements Categoria{
 	public boolean veiculoCompativel(Veiculo veiculo) {
 	    return veiculo instanceof Carro || veiculo instanceof Van;
 	}
+	
+	@Override
+	public String toString() {
+		return "Premium - " + "Acrescimo: " + ((this.ACRESCIMO  - 1) * 100) + "%\n";		
+	}
 }

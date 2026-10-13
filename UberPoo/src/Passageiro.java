@@ -24,7 +24,7 @@ public class Passageiro extends Pessoa{
 	public String toString() {
 		return "Passageiro:\n"
 				+ "Nome: " + this.getNome() + "\n"
-				+ "Cpf: " + this.getCpf() + "\n"
+				+ "CPF: " + this.getCpf() + "\n"
 				+ "Telefone: " + this.getTelefone() + "\n";		
 	}
 }
