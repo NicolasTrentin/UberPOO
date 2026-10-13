@@ -1,9 +1,11 @@
 
 public class Cartao implements FormaPagamento{
 
+	private final double DESCONTO = 1;
+	
 	@Override
 	public double calcularTarifa(double valor) {
-		return valor * 0.95;
+		return valor * DESCONTO;
 	}
 	
 	@Override

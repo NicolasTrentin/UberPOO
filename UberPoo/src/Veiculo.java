@@ -5,18 +5,16 @@ public abstract class Veiculo {
 	private String modelo;
 	private String cor;
 	private int ano;
-	private int capacidadePassageiros; //tinha que ser constante
 	
 	public Veiculo() {
 		
 	}
 
-	public Veiculo(String placa, String modelo, String cor, int ano, int capacidadePassageiros) {
+	public Veiculo(String placa, String modelo, String cor, int ano) {
 		this.placa = placa;
 		this.modelo = modelo;
 		this.cor = cor;
 		this.ano = ano;
-		this.capacidadePassageiros = capacidadePassageiros;
 	}
 
 	public String getPlaca() {
@@ -50,14 +48,6 @@ public abstract class Veiculo {
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
-
-	public int getCapacidadePassageiros() {
-		return capacidadePassageiros;
-	}
-
-	public void setCapacidadePassageiros(int capacidadePassageiros) {
-		this.capacidadePassageiros = capacidadePassageiros;
-	}
 	
 	public abstract double calcularTarifa(double distancia);
 	
@@ -69,8 +59,7 @@ public abstract class Veiculo {
 				+ "Placa: " + this.placa + "\n"
 				+ "Modelo: " + this.modelo + "\n"
 				+ "Cor: " + this.cor + "\n"
-				+ "Ano: " + this.ano + "\n";
-				
+				+ "Ano: " + this.ano + "\n";		
 	}
 	
 }

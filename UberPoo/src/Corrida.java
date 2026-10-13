@@ -1,13 +1,16 @@
 
 public class Corrida {
 
+	private static int proxId = 1;
+	
 	private int id;
 	private String origem;
 	private String destino;
 	private double distancia;
-	private boolean status;
+	private String status;
 	private double valorFinal;
 	
+	private Passageiro passageiro;
 	private Motorista motorista;
 	private FormaPagamento pagamento;
 	private Avaliacao avaliacao;
@@ -15,11 +18,11 @@ public class Corrida {
 	private Categoria categoria;
 	
 	public Corrida() {
-		this.id++;
+		this.id = proxId++;
 	}
 
-	public Corrida(int id, String origem, String destino, double distancia, boolean status, double valorFinal, Motorista motorista, FormaPagamento pagamento, Avaliacao avaliacao, Veiculo veiculo) {
-		this.id++;
+	public Corrida(String origem, String destino, double distancia, String status, double valorFinal, Motorista motorista, FormaPagamento pagamento, Avaliacao avaliacao, Veiculo veiculo, Categoria categoria, Passageiro passageiro) {
+		this.id = proxId++;
 		this.origem = origem;
 		this.destino = destino;
 		this.distancia = distancia;
@@ -29,6 +32,22 @@ public class Corrida {
 		this.pagamento = pagamento;
 		this.avaliacao = avaliacao;
 		this.veiculo = veiculo;
+		this.categoria = categoria;
+		this.passageiro = passageiro;
+	}
+	
+	//#CORRIDA-RECEM-SOLICITADA
+	public Corrida(String origem, String destino, double distancia, FormaPagamento pagamento, Avaliacao avaliacao, Categoria categoria, Passageiro passageiro) {
+		this.id = proxId++;
+		this.origem = origem;
+		this.destino = destino;
+		this.distancia = distancia;
+		this.status = "SOLICITADA";
+		this.valorFinal = 0;
+		this.pagamento = pagamento;
+		this.avaliacao = avaliacao;
+		this.categoria = categoria;
+		this.passageiro = passageiro;
 	}
 	
 	public String getOrigem() {
@@ -55,11 +74,11 @@ public class Corrida {
 		this.distancia = distancia;
 	}
 
-	public boolean isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -116,11 +135,28 @@ public class Corrida {
 	}
 
 	public void aceitar(Motorista motorista) {
-		System.out.println("Corrida aceitada!");
+		
+	   if (motorista == null) {
+	        System.out.println("MOTORISTA INVÁLIDO!");
+	        return;
+	    }
+		
+		if(this.getStatus().equals("SOLICITADA") && this.getCategoria().veiculoCompativel(motorista.getVeiculo())) {
+			
+			this.setMotorista(motorista);
+			this.setVeiculo(motorista.getVeiculo());
+			this.setStatus("ACEITA");
+			
+			this.setValorFinal(this.calcularValor());
+			
+		}else {
+			System.out.println("CORRIDA JÁ ACEITA OU VEÍCULO INCOMPÁTIVEL COM CATEGORIA.");
+		}
+
 	}
 	
-	public void iniciar() {
-		System.out.println("Corrida iniciada!");
+	public void iniciar(Motorista motorista) {
+		
 	}
 	
 	public double finalizar() {
@@ -132,7 +168,7 @@ public class Corrida {
 	}
 	
 	public double calcularValor() {
-		return 0;
+		return this.getPagamento().calcularTarifa(this.getCategoria().calcularValor(this.getDistancia(), this.getVeiculo()));
 	}
 	
 	public boolean podeSerAvaliado() {

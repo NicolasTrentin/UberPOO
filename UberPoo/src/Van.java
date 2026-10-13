@@ -2,13 +2,22 @@
 public class Van extends Veiculo{
 	
 	public final double VALOR_BASE = 8.0;
-	
+	private final int CAPACIDADE_PASSAGEIROS = 20; 
+
 	public Van() {
 		
 	}
+	
+	public Van(String placa, String modelo, String cor, int ano) {
+		super(placa, modelo, cor, ano);
+	}
+	
+	public double getVALOR_BASE() {
+		return VALOR_BASE;
+	}
 
-	public Van(String placa, String modelo, String cor, int ano, int capacidadePassageiros) {
-		super(placa, modelo, cor, ano, capacidadePassageiros);
+	public int getCAPACIDADE_PASSAGEIROS() {
+		return CAPACIDADE_PASSAGEIROS;
 	}
 
 	@Override
@@ -21,6 +30,14 @@ public class Van extends Veiculo{
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Veículo: Van\n"
+				+ "Placa: " + this.getPlaca() + "\n"
+				+ "Modelo: " + this.getModelo() + "\n"
+				+ "Cor: " + this.getCor() + "\n"
+				+ "Ano: " + this.getAno() + "\n"
+				+ "Capacidade: " + this.getCAPACIDADE_PASSAGEIROS() + "passageiros.";		
+	}
 	
 }

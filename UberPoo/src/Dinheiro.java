@@ -1,9 +1,11 @@
 
 public class Dinheiro implements FormaPagamento{
 	
+	private final double DESCONTO = 0.15;
+	
 	@Override
 	public double calcularTarifa(double valor) {
-		return valor * 0.75;
+		return valor * (1 - DESCONTO);
 	}
 	
 	@Override

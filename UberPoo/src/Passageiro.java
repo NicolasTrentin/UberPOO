@@ -1,17 +1,11 @@
 
 public class Passageiro extends Pessoa{
 	
-	private final int LIMITE_CORRIDAS = 100;
-	
-	private Corrida[] corridas;
-	
 	public Passageiro(){
-		this.corridas = new Corrida[LIMITE_CORRIDAS];
 	}
 
 	public Passageiro(String nome, String cpf, String telefone) {
 		super(nome, cpf, telefone);
-		this.corridas = new Corrida[LIMITE_CORRIDAS];
 
 	}
 	
@@ -26,4 +20,11 @@ public class Passageiro extends Pessoa{
 		return avaliacao;
 	}
 	
+	@Override
+	public String toString() {
+		return "Passageiro:\n"
+				+ "Nome: " + this.getNome() + "\n"
+				+ "Cpf: " + this.getCpf() + "\n"
+				+ "Telefone: " + this.getTelefone() + "\n";		
+	}
 }

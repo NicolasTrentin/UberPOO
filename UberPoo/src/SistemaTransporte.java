@@ -62,28 +62,120 @@ public class SistemaTransporte {
 		
 	}
 	
-	public void listarCorridas() {
-		System.out.println("Corridas realizadas:\n");
-		for(int i = 0; i < corridas.length; i++) {
-			
-			System.out.println(corridas[i].toString());
-		}
+//	public void listarCorridas() {
+//		System.out.println("Corridas realizadas:\n");
+//		for(int i = 0; i < corridas.length; i++) {
+//			
+//			System.out.println(corridas[i].toString());
+//		}
+//	}
+	
+	public void listarPassageiros() {
+	    System.out.println("PASSAGEIROS CADASTRADOS:\n");
+
+	    boolean encontrou = false;
+
+	    for (int i = 0; i < passageiros.length; i++) {
+	        if (passageiros[i] != null) {
+	            System.out.println(
+	                "[" + i + "] - " + passageiros[i].toString()
+	            );
+	            
+	            encontrou = true;
+	        }
+	    }
+
+	    if (!encontrou) {
+	        System.out.println("NENHUM PASSAGEIRO ENCONTRADO.");
+	    }
+	}
+	
+	public Passageiro getPassageiro(int indice) {
+	    if (indice >= 0 && indice < passageiros.length) {
+	        return passageiros[indice];
+	    }
+	    
+	    System.out.println("ÍNDICE INVÁLIDO.");
+	    return null;
+	}
+	
+	public void listarMotoristas() {
+	    System.out.println("MOTORISTAS CADASTRADOS:\n");
+
+	    boolean encontrou = false;
+
+	    for (int i = 0; i < motoristas.length; i++) {
+	        if (motoristas[i] != null) {
+	            System.out.println(
+	                "[" + i + "] - " + motoristas[i].toString()
+	            );
+	            
+	            encontrou = true;
+	        }
+	    }
+
+	    if (!encontrou) {
+	        System.out.println("NENHUM MOTORISTA ENCONTRADO.");
+	    }
+	}
+	
+	public Motorista getMotorista(int indice) {
+	    if (indice >= 0 && indice < motoristas.length) {
+	        return motoristas[indice];
+	    }
+	    
+	    System.out.println("ÍNDICE INVÁLIDO.");
+	    return null;
 	}
 	
 	public void listarVeiculos() {
-		if(veiculos == null) {
-			
-			System.out.println("Nenhum veículo encontrado.");
-			
-		}else {
-			
-			System.out.println("Véiculos Disponíveis:\n");
-			for(int i = 0; i < veiculos.length; i++) {
-				
-				System.out.println(veiculos[i].toString());
-			}
-			
-		}
+	    System.out.println("VEÍCULOS CADASTRADOS:\n");
 
+	    boolean encontrou = false;
+
+	    for (int i = 0; i < veiculos.length; i++) {
+	        if (veiculos[i] != null) {
+	        	
+	            System.out.println("[" + i + "]" + " - " + veiculos[i].toString()
+	            		
+	            );
+	            
+	            encontrou = true;
+	        }
+	    }
+
+	    if (!encontrou) {
+	        System.out.println("NENHUM VEÍCULO ENCONTRADO.");
+	    }
+	}
+	
+	public Veiculo getVeiculo(int indice) {
+		
+		if(indice >= 0 && indice <= this.veiculos.length) {
+			return veiculos[indice];
+		}
+		
+		System.out.println("ÍNDICE INVÁLIDO.");
+		return null;
+	}
+	
+	public void listarCorridas() {
+	    System.out.println("CORRIDAS REGISTRADAS:\n");
+
+	    boolean encontrou = false;
+
+	    for (int i = 0; i < corridas.length; i++) {
+	        if (corridas[i] != null) {
+	            System.out.println(
+	                 corridas[i].toString()
+	            );
+	            
+	            encontrou = true;
+	        }
+	    }
+
+	    if (!encontrou) {
+	        System.out.println("NENHUMa CORRIDA ENCONTRADO.");
+	    }
 	}
 }

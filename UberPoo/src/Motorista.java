@@ -13,7 +13,14 @@ public class Motorista extends Pessoa{
 	public Motorista(String nome, String cpf, String telefone, String cnh, boolean disp, Veiculo veiculo) {
 		super(nome, cpf, telefone);
 		this.cnh = cnh;
-		this.disponibilidade = disp;
+		this.disponibilidade = true;
+		this.veiculo = veiculo;
+	}
+	
+	public Motorista(String nome, String cpf, String telefone, String cnh, Veiculo veiculo) {
+		super(nome, cpf, telefone);
+		this.cnh = cnh;
+		this.disponibilidade = true;
 		this.veiculo = veiculo;
 	}
 	
@@ -21,7 +28,10 @@ public class Motorista extends Pessoa{
 		return this.disponibilidade;
 	}
 	
-	
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+
 	public String getCnh() {
 		return cnh;
 	}

@@ -8,14 +8,13 @@ public class Premium implements Categoria{
 	}
 	
 	@Override
-	public double calcularValor(double valor, Veiculo veiculo) {
+	public double calcularValor(double distancia, Veiculo veiculo) {
 		
-		return valor * ACRESCIMO;
+		return veiculo.calcularTarifa(distancia) * ACRESCIMO;
 	}
 
 	@Override
 	public boolean veiculoCompativel(Veiculo veiculo) {
-		
-		return false;
+	    return veiculo instanceof Carro || veiculo instanceof Van;
 	}
 }

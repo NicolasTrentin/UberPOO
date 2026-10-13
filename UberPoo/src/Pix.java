@@ -1,9 +1,11 @@
 
 public class Pix implements FormaPagamento{
 	
+	private final double DESCONTO = 0.10;
+	
 	@Override
 	public double calcularTarifa(double valor) {
-		return valor * 0.90;
+		return valor * (1 - DESCONTO);
 	}
 	
 	@Override
