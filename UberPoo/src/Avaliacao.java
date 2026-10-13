@@ -22,6 +22,10 @@ public class Avaliacao {
 		return nota;
 	}
 
+	public String getComentario() {
+		return comentario;
+	}
+
 	public Motorista getMotorista() {
 		return motorista;
 	}

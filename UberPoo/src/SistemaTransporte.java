@@ -22,6 +22,7 @@ public class SistemaTransporte {
 		this.veiculos = veiculos;
 	}
 
+	//#CADASTRAR
 	public void cadastrarPassageiro(Passageiro passageiro) {
 		for(int i = 0; i < passageiros.length; i++) {
 			if(passageiros[i] == null) {
@@ -49,6 +50,7 @@ public class SistemaTransporte {
 		}
 	}
 	
+	//#AÇÕES_CORRIDA
 	public Corrida solicitarCorrida(Passageiro passageiro, String origem, String destino, double distancia, Categoria categoria, FormaPagamento pagamento) {
 
 	    int i;
@@ -130,6 +132,7 @@ public class SistemaTransporte {
 	    }
 	}
 	
+	//#LISTAGEM
 	public void listarPassageiros() {
 	    System.out.println("PASSAGEIROS CADASTRADOS:\n");
 
@@ -137,9 +140,8 @@ public class SistemaTransporte {
 
 	    for (int i = 0; i < passageiros.length; i++) {
 	        if (passageiros[i] != null) {
-	            System.out.println(
-	                "[" + i + "] - " + passageiros[i].toString()
-	            );
+	        	
+	            System.out.println("[" + i + "] - " + passageiros[i].toString());
 	            
 	            encontrou = true;
 	        }
@@ -147,6 +149,7 @@ public class SistemaTransporte {
 
 	    if (!encontrou) {
 	        System.out.println("NENHUM PASSAGEIRO ENCONTRADO.");
+	        return;
 	    }
 	}
 	
@@ -166,9 +169,8 @@ public class SistemaTransporte {
 
 	    for (int i = 0; i < motoristas.length; i++) {
 	        if (motoristas[i] != null) {
-	            System.out.println(
-	                "[" + i + "] - " + motoristas[i].toString()
-	            );
+	        	
+	            System.out.println("[" + i + "] - " + motoristas[i].toString());
 	            
 	            encontrou = true;
 	        }
@@ -196,9 +198,7 @@ public class SistemaTransporte {
 	    for (int i = 0; i < veiculos.length; i++) {
 	        if (veiculos[i] != null) {
 	        	
-	            System.out.println("[" + i + "]" + " - " + veiculos[i].toString()
-	            		
-	            );
+	            System.out.println("[" + i + "]" + " - " + veiculos[i].toString());
 	            
 	            encontrou = true;
 	        }
@@ -226,10 +226,9 @@ public class SistemaTransporte {
 
 	    for (int i = 0; i < corridas.length; i++) {
 	        if (corridas[i] != null) {
-	            System.out.println(
-	                 corridas[i].toString()
-	            );
-	            
+	        	
+	            System.out.println(corridas[i].toString());
+	           
 	            encontrou = true;
 	        }
 	    }
@@ -247,5 +246,41 @@ public class SistemaTransporte {
 	    }
 	    
 	    return null;
+	}
+	
+	//#AVALIAÇÃO
+	public Avaliacao[] getAvaliacoes() {
+	    Avaliacao[] avaliacoes = new Avaliacao[corridas.length];
+	
+	    for (int i = 0; i < corridas.length; i++) {
+	        if (corridas[i] != null && corridas[i].getAvaliacao() != null) {
+	            avaliacoes[i] = corridas[i].getAvaliacao();
+	        }
+	    }
+	
+	    return avaliacoes;
+	}
+	
+	public void listarComentarios( Motorista m) {
+		
+		boolean possuiComentarios = false;
+		
+		Avaliacao[] a = this.getAvaliacoes();
+		
+		for (int i = 0; i < a.length; i++) {
+		    if (a[i] != null && a[i].getMotorista() == m && a[i].getComentario() != null && !a[i].getComentario().isBlank()) {
+
+		        System.out.println("["+ (i + 1) + "]" + "-" + a[i].getComentario() + "\n");
+		        possuiComentarios = true;
+		    }
+		}
+		
+		if (!possuiComentarios) {
+		    System.out.println("Nenhum comentário registrado.");
+		}
+	}
+
+	public double calcularMediaAvaliacoes(Motorista motorista) {
+	    return motorista.calcularMediaAvaliacoes(getAvaliacoes());
 	}
 }

@@ -58,7 +58,7 @@ public class Menu {
 		
 		do {
 			System.out.println("=========================================");
-			System.out.println("\tSISTEMA DE TRANSPORTE - CADASTROS");
+			System.out.println("SISTEMA DE TRANSPORTE - CADASTROS");
 			System.out.println("=========================================");
 			System.out.println(" [1] - CADASTRAR PASSAGEIRO");
 			System.out.println(" [2] - CADASTRAR VEÍCULO");
@@ -228,7 +228,7 @@ public class Menu {
 		
 		do {
 			System.out.println("=========================================");
-			System.out.println("\tSISTEMA DE TRANSPORTE - CORRIDAS");
+			System.out.println("SISTEMA DE TRANSPORTE - CORRIDAS");
 			System.out.println("=========================================");
 			System.out.println(" [1] - SOLICITAR CORRIDA");
 			System.out.println(" [2] - ACEITAR CORRIDA");
@@ -437,5 +437,91 @@ public class Menu {
 	        System.out.println("AVALIAÇÃO REGISTRADA COM SUCESSO!");
 	    }
 	}
+	
+	//#CONSULTAS
+	public void menuConsultas() {
+		
+		int opcao = 0;
+		//sc = new Scanner(System.in);
+		
+		do {
+			System.out.println("=========================================");
+			System.out.println("SISTEMA DE TRANSPORTE - CADASTROS");
+			System.out.println("=========================================");
+			System.out.println(" [1] - LISTAR CORRIDAS");
+			System.out.println(" [2] - CONSULTAR PASSAGEIRO");
+			System.out.println(" [3] - CONSULTAR MOTORISTA");
+			System.out.println(" [0] - SAIR ");
+			
+			opcao = sc.nextInt();
+			
+			sc.nextLine();
+			
+			switch (opcao) {
+			case 1:
+				sistema.listarCorridas();
+				break;
+			case 2:
+				consultarPassageiro();
+				break;
+			case 3:
+				consultarMotorista();
+				break;
+			case 0:
+				System.out.println("SAINDO...");
+				System.exit(0);
+			}
+			
+			System.out.println("=========================================");
+			
+		} while (opcao != 0);
+		
+		sc.close();
+	}
 
+
+	public void consultarMotorista() {
+	    System.out.println("Selecione o motorista desejado:\n");
+	    Motorista m = null;
+	    sistema.listarMotoristas();
+	
+	    int indice = sc.nextInt();
+	    sc.nextLine();
+	
+	    m = sistema.getMotorista(indice);
+	
+	    if (m == null) {
+	        System.out.println("MOTORISTA NÃO ENCONTRADO.");
+	        return;
+	    }
+	    
+	    System.out.println(m.toString());
+	
+	    double media = sistema.calcularMediaAvaliacoes(m);
+	    
+	    if (media == 0.0) {
+	        System.out.println("MOTORISTA NÃO POSSUI AVALIAÇÕES");
+	    } else {
+	        System.out.println("Média das avaliações: " + String.format("%.2f", media));
+	        sistema.listarComentarios(m);
+	    }
+	}
+	
+	public void consultarPassageiro() {
+	    System.out.println("Selecione o passageiro desejado:\n");
+	    Passageiro p = null;
+	    sistema.listarPassageiros();
+	
+	    int indice = sc.nextInt();
+	    sc.nextLine();
+	
+	    p = sistema.getPassageiro(indice);
+	
+	    if (p == null) {
+	        System.out.println("PASSAGEIRO NÃO ENCONTRADO.");
+	        return;
+	    }
+	    
+	    System.out.println(p.toString());
+	}
 }

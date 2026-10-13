@@ -42,18 +42,25 @@ public class Motorista extends Pessoa{
 	}
 
 	public double calcularMediaAvaliacoes(Avaliacao[] avaliacoes) {
-		
 	    if (avaliacoes == null || avaliacoes.length == 0) {
 	        return 0.0;
 	    }
-		
-		double soma = 0.0;
-		
-		for(int i = 0; i < avaliacoes.length; i ++) {
-			soma += avaliacoes[i].getNota();
-		}
-		
-		return soma / avaliacoes.length;
+	
+	    double soma = 0.0;
+	    int quantidade = 0;
+	
+	    for (int i = 0; i < avaliacoes.length; i++) {
+	        if (avaliacoes[i] != null && avaliacoes[i].getMotorista() == this) {
+	            soma += avaliacoes[i].getNota();
+	            quantidade++;
+	        }
+	    }
+	
+	    if (quantidade == 0) {
+	        return 0.0;
+	    }
+	
+	    return soma / quantidade;
 	}
 	
 	public String toString() {
