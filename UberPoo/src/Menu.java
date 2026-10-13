@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Menu {
 	
@@ -19,14 +20,14 @@ public class Menu {
 			System.out.println("=========================================");
 			System.out.println("\tSISTEMA DE TRANSPORTE");
 			System.out.println("=========================================");
-			System.out.println(" 1 - CADASTROS");
-			System.out.println(" 2 - CORRIDAS");
-			System.out.println(" 3 - CONSULTAS");
-			System.out.println(" 0 - SAIR ");
+			System.out.println(" [1] - CADASTROS");
+			System.out.println(" [2] - CORRIDAS");
+			System.out.println(" [3] - CONSULTAS");
+			System.out.println(" [0] - SAIR ");
+			System.out.println("=========================================");
 			
-			opcao = sc.nextInt();
-			
-			sc.nextLine();
+			opcao = this.lerInt();		
+			//sc.nextLine();
 			
 			switch (opcao) {
 			case 1:
@@ -36,14 +37,14 @@ public class Menu {
 				menuCorridas();
 				break;
 			case 3:
-				//consultas();
+				menuConsultas();
 				break;
 			case 0:
 				System.out.println("Saindo...");
 				System.exit(0);
+		    default:
+		        mostrarMenu();
 			}
-			
-			System.out.println("=========================================");
 			
 		} while (opcao != 0);
 		
@@ -63,11 +64,11 @@ public class Menu {
 			System.out.println(" [1] - CADASTRAR PASSAGEIRO");
 			System.out.println(" [2] - CADASTRAR VEÍCULO");
 			System.out.println(" [3] - CADASTRAR MOTORISTA");
-			System.out.println(" [0] - SAIR ");
+			System.out.println(" [0] - VOLTAR ");
+			System.out.println("=========================================");
 			
-			opcao = sc.nextInt();
-			
-			sc.nextLine();
+			opcao = this.lerInt();	
+			//sc.nextLine();
 			
 			switch (opcao) {
 			case 1:
@@ -80,11 +81,11 @@ public class Menu {
 				cadastrarMotorista();
 				break;
 			case 0:
-				System.out.println("SAINDO...");
-				System.exit(0);
+				System.out.println("VOLTANDO...");
+				mostrarMenu();
+		    default:
+		        menuCadastros();
 			}
-			
-			System.out.println("=========================================");
 			
 		} while (opcao != 0);
 		
@@ -127,8 +128,8 @@ public class Menu {
 		
 		sistema.listarVeiculos();
 		
-		int indice = sc.nextInt();
-		sc.nextLine();
+		int indice = this.lerInt();
+		//sc.nextLine();
 		
 		m = new Motorista(nome, cpf, telefone, cnh, sistema.getVeiculo(indice));
 		
@@ -143,8 +144,8 @@ public class Menu {
 		
 		int opcao = 0;
 		
-		opcao = sc.nextInt();
-		sc.nextLine();
+		opcao = this.lerInt();
+		//sc.nextLine();
 		
 		switch (opcao) {
 		case 1:
@@ -156,8 +157,10 @@ public class Menu {
 		case 3:
 			van();
 			break;
+	    default:
+			System.out.println("VEICULO INVÁLIDO, REINICIANDO...");
+			cadastrarVeiculo();
 		}
-	
 	}
 	
 	public void moto() {
@@ -172,8 +175,8 @@ public class Menu {
 		System.out.println("COR:\n");
 		String cor = sc.nextLine();
 		System.out.println("ANO:\n");
-		int ano = sc.nextInt();
-		sc.nextLine();
+		int ano = this.lerInt();
+		//sc.nextLine();
 		
 		v = new Moto(placa, modelo, cor, ano);
 		
@@ -192,8 +195,8 @@ public class Menu {
 		System.out.println("COR:\n");
 		String cor = sc.nextLine();
 		System.out.println("ANO:\n");
-		int ano = sc.nextInt();
-		sc.nextLine();
+		int ano = this.lerInt();
+		//sc.nextLine();
 		
 		v = new Carro(placa, modelo, cor, ano);
 		
@@ -212,8 +215,8 @@ public class Menu {
 		System.out.println("COR:\n");
 		String cor = sc.nextLine();
 		System.out.println("ANO:\n");
-		int ano = sc.nextInt();
-		sc.nextLine();
+		int ano = this.lerInt();
+		//sc.nextLine();
 		
 		v = new Van(placa, modelo, cor, ano);
 		
@@ -232,13 +235,15 @@ public class Menu {
 			System.out.println("=========================================");
 			System.out.println(" [1] - SOLICITAR CORRIDA");
 			System.out.println(" [2] - ACEITAR CORRIDA");
-			System.out.println(" [3] - FINALIZAR CORRIDA");
-			System.out.println(" [4] - CANCELAR CORRIDA");
-			System.out.println(" [5] - AVALIAR MOTORISTA");
+			System.out.println(" [3] - INICIAR CORRIDA");
+			System.out.println(" [4] - FINALIZAR CORRIDA");
+			System.out.println(" [5] - CANCELAR CORRIDA");
+			System.out.println(" [6] - AVALIAR MOTORISTA");
 			System.out.println(" [0] - VOLTAR ");
+			System.out.println("=========================================");
 			
-			opcao = sc.nextInt();		
-			sc.nextLine();
+			opcao = this.lerInt();		
+			//sc.nextLine();
 			
 			switch (opcao) {
 			case 1:
@@ -248,20 +253,21 @@ public class Menu {
 				aceitarCorrida();
 				break;
 			case 3:
-				finalizarCorrida();
+				iniciarCorrida();
 				break;
 			case 4:
-				cancelarCorrida();
+				finalizarCorrida();
 				break;
 			case 5:
+				cancelarCorrida();
+				break;
+			case 6:
 				avaliarMotorista();
 				break;
 			case 0:
 				System.out.println("VOLTANDO...");
 				mostrarMenu();
 			}
-			
-			System.out.println("=========================================");
 			
 		} while (opcao != 0);
 		
@@ -277,15 +283,14 @@ public class Menu {
 		 
 		sistema.listarPassageiros();
 		 
-		indice = sc.nextInt();
-		sc.nextLine();
+		indice = this.lerInt();
+		//sc.nextLine();;
 
 		p = sistema.getPassageiro(indice);
-		
-//		if (p == null) {
-//		    System.out.println("PASSAGEIRO NÃO ENCONTRADO.");
-//		    return;
-//		}
+		if (p == null) {
+		    System.out.println("PASSAGEIRO NÃO ENCONTRADO.");
+		    return;
+		}
 		
 		Corrida c = null;
 		
@@ -296,7 +301,7 @@ public class Menu {
 		System.out.println("ENDEREÇO DESTINO :\n");
 		String destino = sc.nextLine();
 		System.out.println("DISTÂNCIA:\n");
-		double distancia = sc.nextDouble();
+		double distancia = this.lerDouble();
 		
 		System.out.println("Selecione a categoria da corrida solicitada:\n");
 		
@@ -308,8 +313,8 @@ public class Menu {
 		
 		int opcao = 0;
 		
-		opcao = sc.nextInt();
-		sc.nextLine();
+		opcao = this.lerInt();
+		//sc.nextLine();
 		
 		switch (opcao) {
 		case 1:
@@ -322,8 +327,8 @@ public class Menu {
 			cat = new Premium();;
 			break;
 	    default:
-	        System.out.println("CATEGORIA INVÁLIDA.");
-	        return;
+	        System.out.println("CATEGORIA INVÁLIDA, REINICIANDO...");
+	        solicitarCorrida();
 		}
 		
 		System.out.println("Selecione a forma de pagamento da corrida solicitada:\n");
@@ -334,8 +339,8 @@ public class Menu {
 		System.out.println(" [2] - PIX");
 		System.out.println(" [3] - CARTÃO");
 		
-		opcao = sc.nextInt();
-		sc.nextLine();
+		opcao = this.lerInt();
+		//sc.nextLine();
 		
 		switch (opcao) {
 		case 1:
@@ -348,11 +353,17 @@ public class Menu {
 			pag = new Cartao();;
 			break;
 	    default:
-	        System.out.println("FORMA DE PAGAMENTO INVÁLIDA.");
-	        return;
+	        System.out.println("FORMA DE PAGAMENTO INVÁLIDA, REINICIANDO...");
+	        solicitarCorrida();
 		}
 		
 		c = sistema.solicitarCorrida(p, origem, destino, distancia, cat, pag);
+		
+		if (c == null) {
+		    System.out.println("NÃO FOI POSSÍVEL SOLICITAR A CORRIDA.");
+		    return;
+		}
+		
 		System.out.println("Corrida soliciada com sucesso:\n" + c.toString());
 	}
 	
@@ -361,15 +372,15 @@ public class Menu {
 
 	    sistema.listarCorridas();
 
-	    int id = sc.nextInt();
-	    sc.nextLine();
+		int id = this.lerInt();
+		//sc.nextLine();
 
 	    System.out.println("Selecione o motorista desejado:\n");
 
 	    sistema.listarMotoristas();
 
-	    int indice = sc.nextInt();
-	    sc.nextLine();
+		int indice = this.lerInt();
+		//sc.nextLine();;
 
 	    Motorista m = sistema.getMotorista(indice);
 
@@ -381,13 +392,24 @@ public class Menu {
 	    sistema.aceitarCorrida(id, m);
 	}
 	
+	public void iniciarCorrida() {
+	    System.out.println("Selecione a corrida que deseja iniciar:\n");
+
+	    sistema.listarCorridas();
+
+		int id = this.lerInt();
+		//sc.nextLine();
+
+	    sistema.iniciarCorrida(id);
+	}
+	
 	public void finalizarCorrida() {
 	    System.out.println("Selecione o ID da corrida que deseja finalizar:\n");
 
 	    sistema.listarCorridas();
 
-	    int id = sc.nextInt();
-	    sc.nextLine();
+		int id = this.lerInt();
+		//sc.nextLine();
 	    
 		sistema.finalizarCorrida(id);
 	}
@@ -397,8 +419,8 @@ public class Menu {
 
 	    sistema.listarCorridas();
 
-	    int id = sc.nextInt();
-	    sc.nextLine();
+		int id = this.lerInt();
+		//sc.nextLine();
 	    
 		sistema.cancelarCorrida(id);
 	}
@@ -409,8 +431,8 @@ public class Menu {
 
 	    sistema.listarCorridas();
 	    
-	    int id = sc.nextInt();
-	    sc.nextLine();
+		int id = this.lerInt();
+		//sc.nextLine();
 	    
 	    c = sistema.getCorrida(id);
 	    
@@ -423,15 +445,33 @@ public class Menu {
 	        System.out.println("ESSA CORRIDA NÃO PODE SER AVALIADA.");
 	        return;
 	    }
-	    
-	    System.out.println("Digite a nota do motorista (1 a 5):");
-	    int nota = sc.nextInt();
-	    sc.nextLine();
 
-	    System.out.println("Digite um comentário (ou pressione ENTER para pular):");
-	    String comentario = sc.nextLine();
-	    
-	    Avaliacao a = new Avaliacao(nota, comentario, c.getMotorista());
+		int nota = 0;
+		
+		while (true) {
+		    System.out.println("Digite uma nota de 1 a 5:");
+		
+		    try {
+			        nota = this.lerInt();
+			        //sc.nextLine();
+			
+			        if (nota >= 1 && nota <= 5) {
+			            break;
+		        }
+		
+		        System.out.println("NOTA INVÁLIDA. DIGITE UM VALOR DE 1 A 5.");
+		
+		    } catch (InputMismatchException e) {
+		        System.out.println("ENTRADA INVÁLIDA. DIGITE UM NÚMERO INTEIRO.");
+		
+		        sc.nextLine();
+		    }
+		}
+		
+		System.out.println("Digite um comentario para o motorista(pressione ENTER para vazio).");
+		String comentario = sc.nextLine();
+		
+		Avaliacao a = new Avaliacao(nota, comentario, c.getMotorista());
 
 	    if (c.avaliar(a)) {
 	        System.out.println("AVALIAÇÃO REGISTRADA COM SUCESSO!");
@@ -451,11 +491,11 @@ public class Menu {
 			System.out.println(" [1] - LISTAR CORRIDAS");
 			System.out.println(" [2] - CONSULTAR PASSAGEIRO");
 			System.out.println(" [3] - CONSULTAR MOTORISTA");
-			System.out.println(" [0] - SAIR ");
+			System.out.println(" [0] - VOLTAR ");
+			System.out.println("=========================================");
 			
-			opcao = sc.nextInt();
-			
-			sc.nextLine();
+			opcao = this.lerInt();	
+			//sc.nextLine();
 			
 			switch (opcao) {
 			case 1:
@@ -468,11 +508,9 @@ public class Menu {
 				consultarMotorista();
 				break;
 			case 0:
-				System.out.println("SAINDO...");
-				System.exit(0);
+				System.out.println("VOLTANDO...");
+				mostrarMenu();
 			}
-			
-			System.out.println("=========================================");
 			
 		} while (opcao != 0);
 		
@@ -485,8 +523,8 @@ public class Menu {
 	    Motorista m = null;
 	    sistema.listarMotoristas();
 	
-	    int indice = sc.nextInt();
-	    sc.nextLine();
+	    int indice = this.lerInt();
+	    //sc.nextLine();
 	
 	    m = sistema.getMotorista(indice);
 	
@@ -508,12 +546,13 @@ public class Menu {
 	}
 	
 	public void consultarPassageiro() {
+		System.out.println("=========================================");
 	    System.out.println("Selecione o passageiro desejado:\n");
 	    Passageiro p = null;
 	    sistema.listarPassageiros();
 	
-	    int indice = sc.nextInt();
-	    sc.nextLine();
+	    int indice = this.lerInt();
+	    //sc.nextLine();
 	
 	    p = sistema.getPassageiro(indice);
 	
@@ -523,5 +562,35 @@ public class Menu {
 	    }
 	    
 	    System.out.println(p.toString());
+	    System.out.println("=========================================");
+	}
+	
+	//#AUXILIAR
+	
+	public int lerInt() {
+	    while (true) {
+	        try {
+	            int valor = sc.nextInt();
+	            sc.nextLine();
+	            return valor;
+	        } catch (InputMismatchException e) {
+	            System.out.println("\nENTRADA INVÁLIDA, TENTE UM NÚMERO INTEIRO.\n");
+	            sc.nextLine();
+	        }
+	    }
+	}
+	
+	public double lerDouble() {
+	    while (true) {
+	        try {
+	            double valor = sc.nextDouble();
+	            sc.nextLine();
+	            return valor;
+
+	        } catch (InputMismatchException e) {
+	            System.out.println("\nENTRADA INVÁLIDA, TENTE UM NÚMERO DECIMAL.\n");
+	            sc.nextLine();
+	        }
+	    }
 	}
 }

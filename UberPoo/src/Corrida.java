@@ -209,7 +209,8 @@ public class Corrida {
 	
 	@Override
 	public String toString() {
-		return "Corrida " + String.format("%02d", this.id) + "\n"
+		return "Corrida " + "[" + String.format("%02d", this.id) + "]" + "\n"
+				+ "ID :" + this.id + "\n" 
 				+ "Origem: " + this.origem + "\n"
 				+ "Destino: " + this.destino + "\n"
 				+ "Motorista: " + (this.motorista == null ? "Ainda não atribuído" : this.motorista) + "\n"

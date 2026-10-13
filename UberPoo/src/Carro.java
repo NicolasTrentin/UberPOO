@@ -37,6 +37,6 @@ public class Carro extends Veiculo {
 				+ "Modelo: " + this.getModelo() + "\n"
 				+ "Cor: " + this.getCor() + "\n"
 				+ "Ano: " + this.getAno() + "\n"
-				+ "Capacidade: " + this.getCAPACIDADE_PASSAGEIROS() + "passageiros.";		
+				+ "Capacidade: " + this.getCAPACIDADE_PASSAGEIROS() + " passageiros.";		
 	}
 }

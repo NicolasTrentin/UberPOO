@@ -97,6 +97,16 @@ public class SistemaTransporte {
 	    }
 	}
 	
+	public void iniciarCorrida(int id) {
+	    Corrida c = getCorrida(id);
+
+	    if (c == null) {
+	        return;
+	    }
+
+	    c.iniciar();
+	}
+	
 	public void finalizarCorrida(int id) {
 		
 		boolean encontrou = false;
@@ -151,6 +161,7 @@ public class SistemaTransporte {
 	        System.out.println("NENHUM PASSAGEIRO ENCONTRADO.");
 	        return;
 	    }
+	    
 	}
 	
 	public Passageiro getPassageiro(int indice) {
@@ -163,6 +174,7 @@ public class SistemaTransporte {
 	}
 	
 	public void listarMotoristas() {
+		System.out.println("=========================================");
 	    System.out.println("MOTORISTAS CADASTRADOS:\n");
 
 	    boolean encontrou = false;
@@ -179,6 +191,8 @@ public class SistemaTransporte {
 	    if (!encontrou) {
 	        System.out.println("NENHUM MOTORISTA ENCONTRADO.");
 	    }
+	    
+	    System.out.println("=========================================");
 	}
 	
 	public Motorista getMotorista(int indice) {
@@ -191,6 +205,7 @@ public class SistemaTransporte {
 	}
 	
 	public void listarVeiculos() {
+		System.out.println("=========================================");
 	    System.out.println("VEÍCULOS CADASTRADOS:\n");
 
 	    boolean encontrou = false;
@@ -207,11 +222,13 @@ public class SistemaTransporte {
 	    if (!encontrou) {
 	        System.out.println("NENHUM VEÍCULO ENCONTRADO.");
 	    }
+	    
+	    System.out.println("=========================================");
 	}
 	
 	public Veiculo getVeiculo(int indice) {
 		
-		if(indice >= 0 && indice <= this.veiculos.length) {
+		if(indice >= 0 && indice < this.veiculos.length) {
 			return veiculos[indice];
 		}
 		
@@ -223,7 +240,7 @@ public class SistemaTransporte {
 	    System.out.println("CORRIDAS REGISTRADAS:\n");
 
 	    boolean encontrou = false;
-
+	    
 	    for (int i = 0; i < corridas.length; i++) {
 	        if (corridas[i] != null) {
 	        	
@@ -236,6 +253,7 @@ public class SistemaTransporte {
 	    if (!encontrou) {
 	        System.out.println("NENHUMA CORRIDA ENCONTRADA.");
 	    }
+	   
 	}
 	
 	public Corrida getCorrida(int id) {
@@ -264,6 +282,8 @@ public class SistemaTransporte {
 	public void listarComentarios( Motorista m) {
 		
 		boolean possuiComentarios = false;
+		
+		
 		
 		Avaliacao[] a = this.getAvaliacoes();
 		
