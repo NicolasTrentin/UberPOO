@@ -6,12 +6,6 @@
 
 # 
 
-###### CATEGORIA
-
-* Função de validação de carro por categoria.
-
-
-
 ###### SISTEMA TRANSPORTE
 
 * como implementar função public void aceitarCorrida(id int, Motorista motorista), em SistemaTransporte;
@@ -22,12 +16,6 @@
 ###### CORRIDA
 
 * como implementar método podeSerAvaliado(), para avaliar corrida/motorista.
-
-
-
-###### VEICULO
-
-* como implementar método veiculoCompativel(Veiculo veiculo).
 
 
 
