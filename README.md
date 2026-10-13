@@ -3,7 +3,6 @@
 
 
 ##### Dentro do Código:
-
 # 
 
 ###### SISTEMA TRANSPORTE
@@ -32,7 +31,6 @@
 
 
 ##### Dentro do Diagrama:
-
 #
 
 * private final int LIMITE\_CORRIDAS = 100, dentro de Passageiro;
